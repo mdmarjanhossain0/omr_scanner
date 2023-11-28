@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+<main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Controll ORM machine</h1>
+            {% if status %}
+            <div class="alert alert-primary" role="alert">
+                {{ status }}
+              </div>
+              {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary" name="start" value="fkldjflks">Start</button>
+            </form>
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary" name="stop">Stop</button>
+            </form>
+        </div>
+    </div>
+
+</main>
+{% endblock %}

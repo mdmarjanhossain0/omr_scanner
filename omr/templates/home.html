@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+<main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h1 class="display-3">Automatic OMR Scanner</h1>
+            <p>Choose an OMR image file for detecting result</p>
+            <form action="/" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" accept="image/*" name="omr">
+                <br>
+                <br>
+                <button type="submit" type="button" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">SL</th>
+                <th scope="col">Correct</th>
+                <th scope="col">Wrong</th>
+                <th scope="col">Image</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in omrs  %}
+              {% if item.omr_sheet %}
+              <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ item.correct }}</td>
+                <td>{{ item.wrong }}</td>
+                <td>
+                  <img src="{{ item.omr_sheet.url }}" alt="" style="max-width: 5vw">
+                </td>
+              </tr>
+              {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+
+        <hr>
+
+    </div> <!-- /container -->
+
+</main>
+{% endblock %}
